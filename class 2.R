@@ -16,4 +16,4 @@ L
 L$coefficients
 abline(L,col='red')
 
-predict()
+help(predict.lm())
