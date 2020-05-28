@@ -1,6 +1,6 @@
 # Defining the equation
 x = runif(50,-7,7)
-y = 5-6*x+rnorm(50,0,10)
+y = 5 - 6*x + rnorm(50,0,50)
 # Ploting the equation
 plot(x,y)
 title('Linear equation')
@@ -12,17 +12,19 @@ summary(L)
 
 # L$coefficients: exact values
 L$coefficients
-abline(L,col='black')
+abline(L,col='red')
 
-# Calling for help in R
+# Help in R
 #help(predict.lm)
 
 # Prediction of y_hat associated to the training sample
 # Prediction associated to a new observaton
 predict(L)
-# Creating new data set
-new = data.frame(x = seq(-7,7,0.1))
+# Inserting the prediction points into the graph (blue X)
+points(x,predict(L),pch='X',col='blue')
 
+# Creating new data set
+new = data.frame(x = seq(-7,7,length.out = 50))
 # Obtaining the confidence interval and prediction
 # The prediction always require a new data set (new observation)
 pred.w.plim <- predict(L, new, interval = "prediction")
@@ -34,12 +36,18 @@ grid()
 # Plotting individually (just replace plim or clim)
 #matplot(new$x, pred.w.plim, lty = c(1,2,2,3,3), type = "l", ylab = "predicted y")
 #grid()
-
+summary(L)
 # Plotting all together
 # Training data set
 plot(x,y)
-title('Prediction and confidence interval PLUS training set')
-matlines(new$x, cbind(pred.w.clim, pred.w.plim[,-1]), lty = c(1,2,2,3,3), type = "l", ylab = "predicted y")
-points(L$model$y,col='yellow')
 grid()
+title('Prediction and confidence interval PLUS training set')
+# Confidence levels in prediction and E[y]
+matlines(new$x, cbind(pred.w.clim, pred.w.plim[,-1]), lty = c(1,2,2,3,3), type = "l", ylab = "predicted y")
+# Plotting the prediction with the training set
+points(x,predict(L),pch='X',col='blue')
+# Plotting the prediction with a new data set
+points(x,predict(L,new),pch='P',col='purple')
+
+
 
