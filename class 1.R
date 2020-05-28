@@ -8,24 +8,29 @@ title(main='Linear Regression Example',xlab = 'Uniform points',ylab = 'Linear EQ
 
 # Linear regression
 L = lm(y~x)
+
+#Summary
 summary(L)
 names(L)
 L$coefficients
 L$rank
 L$call
 L$model
+
+# Calculating (sigma_hat)^2
 sigmahatn2 = sum(L$residuals^2)/98
 sigmahatn2
 sqrt(sigmahatn2)
-summary(L)
 
 # Checking that the noise is Gaussian (through the residuals)
 R = L$residuals
 hist(R,freq = FALSE) 
 plot(L) 
+
 # one of the graphs shows with a red line the expectation of the noise (zero) and the points around the line.
 # If the number of points on each side of the red line is equal, then we can accept the solution (concept of 
 # homoscedasticity). It is important to check that we have the same variance across the dataset
 
 
- 
+
+
