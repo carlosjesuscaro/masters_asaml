@@ -1,6 +1,6 @@
 # Defining the equation
 x = runif(50,-7,7)
-y = 5-6*x+rnorm(50,0,50)
+y = 5-6*x+rnorm(50,0,10)
 # Ploting the equation
 plot(x,y)
 title('Linear equation')
@@ -39,4 +39,7 @@ grid()
 plot(x,y)
 title('Prediction and confidence interval PLUS training set')
 matlines(new$x, cbind(pred.w.clim, pred.w.plim[,-1]), lty = c(1,2,2,3,3), type = "l", ylab = "predicted y")
+points(L$model$y,col='red')
 grid()
+
+
