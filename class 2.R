@@ -12,7 +12,7 @@ summary(L)
 
 # L$coefficients: exact values
 L$coefficients
-abline(L,col='red')
+abline(L,col='black')
 
 # Calling for help in R
 #help(predict.lm)
@@ -36,10 +36,10 @@ grid()
 #grid()
 
 # Plotting all together
+# Training data set
 plot(x,y)
 title('Prediction and confidence interval PLUS training set')
 matlines(new$x, cbind(pred.w.clim, pred.w.plim[,-1]), lty = c(1,2,2,3,3), type = "l", ylab = "predicted y")
-points(L$model$y,col='red')
+points(L$model$y,col='yellow')
 grid()
-
 
