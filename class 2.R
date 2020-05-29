@@ -2,8 +2,8 @@ print('Exercise 1')
 
 # Defining the training data set
 x = runif(100,-7,7)
-y = 3 - 2*x + rnorm(100,500,150)
-# y = 3 -2*x + rpois(100, lambda = 1)
+# y = 3 - 2*x + rnorm(100,500,150)
+y = 3 -2*x + rpois(100, lambda = 1)
 # Plotting the training data set
 plot(x,y)
 title('Training data set')
@@ -38,4 +38,7 @@ plot(L)
 # 3. Scale location
 # Standarized residuals ~ observed quantiles
 # 4. Residuals vs Leverage
+# It helps you identify influential data points on your model
+
+
 
