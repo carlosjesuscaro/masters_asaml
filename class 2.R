@@ -42,9 +42,11 @@ plot(L)
 
 # Prediction
 pr = predict(L)
+#plot(x,y)
 plot(pr,col='green')
 title('Only prediction')
 grid()
+
 
 
 
