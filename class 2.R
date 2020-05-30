@@ -62,8 +62,8 @@ L1 = lm(y~.,data=as.data.frame(A))
 L1
 summary(L1)
 
-x = cbind(rep(1,50),A)
-rankMatrix(x)
+# = cbind(rep(1,50),A)
+
 # rank = 5
 # From the output: F statistic: 4773 on 4 (rank -1) and (n - rank)
 
