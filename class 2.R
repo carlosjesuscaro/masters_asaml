@@ -2,7 +2,7 @@ print('Exercise 1')
 
 # Defining the training data set
 x = runif(100,-7,7)
-y = 3 - 2*x + rnorm(100,500,150)
+y = 3 - 2*x + rnorm(100,0,150)
 # y = 3 -2*x + rpois(100, lambda = 1)
 # Plotting the training data set
 plot(x,y)
@@ -46,6 +46,11 @@ pr = predict(L)
 plot(pr,col='green')
 title('Only prediction')
 grid()
+# Creating a testing set
+new = data.frame(x = seq(-7,7,length.out = 100))
+prn = predict(L,new)
+points(prn,col='blue')
+points(pr,pch='X',col='red')
 
 
 
