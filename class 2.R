@@ -50,3 +50,11 @@ points(x,predict(L,new),pch='P',col='purple')
 print('Summary of prediction with testing data')
 summary(predict(L,new))
 
+print('Multivariable linear problem')
+A = matrix(0,nrow = 50,ncol = 4)
+A[,1] = rexp(50,0,4)
+A[,2] = rnorm(50,3,0.5)
+A[,3] = rpois(50,0.8)
+A[,4] = runif(50,-5,3)
+
+y = 3 + 2*A[,1] = 5*A[,2] + 7*A[4] + rnorm(50)
