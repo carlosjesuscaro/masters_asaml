@@ -16,21 +16,14 @@ A4 = read.table('A4.txt')
 print('Linear Model 1')
 L1 = lm(as.matrix(Y1)~.,data = as.data.frame(A1))
 summary(L1)
-# we dont have the correct explanatory variables
-# The first thing to look should be the Multiple R-squared and
-# Adjusted R-squared (which are very bad in this case)
 
 print('Linear Model 2')
 L2 = lm(as.matrix(Y2)~.,data = as.data.frame(A1))
 summary(L2)
-# similar as the previous case, the data isn't a good fit for the
-# model
 
 print('Linear Model 3')
 L3 = lm(as.matrix(Y3)~.,data = as.data.frame(A3))
 summary(L3)
-# Much better outcome as the Global Fisher testing and R^2 squared
-# give better results and the individual tests are fine (all of them)
 
 print('Linear Model 4')
 L4 = lm(as.matrix(Y4)~.,data = as.data.frame(A4))
