@@ -33,4 +33,24 @@ print("Fit2 Model with forced Lambda: ")
 print(coefficients(fit22))
 print("Fit2CV: ")
 
+#****************
+# Another example
+B = matrix(data=0,ncol=5,nrow=100)
+B[,1] = runif(100,-4,3)
+B[,2] = rexp(100,4)
+B[,3] = rexp(100,0.02)
+B[,4] = rpois(100,10)
+B[,5] = rf(100,2,5)
+A = -2 + 3*B[,2] - 5*B[,1] + B[,4] + rnorm(100)
+ABfitcv = cv.glmnet(B,A)
+plot(ABfitcv)
+ABfit = glmnet(B,A,alpha = 1,lambda = ABfitcv$lambda.1se)
+plot(ABfit)
+print(coefficients(ABfit))
+print(cor(B))
 
+# forcing the lambda isnt a good practice because the
+# outcome is a bias estimator.
+# The right way is to use lasso to ave the suppoort of
+# variables that need to be supressed and THEN we use
+# a ordinary linear model (OLM)
