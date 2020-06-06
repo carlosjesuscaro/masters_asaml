@@ -10,8 +10,20 @@ X = matrix(data=c(rep(1,100),
                   c(rep(0,65),rep(1,10),rep(0,25)),
                   c(rep(0,75),rep(1,25))),ncol=6)
 
-B = matrix(data=c(4,0.5,0.4,0.6,0.2,0.1),ncol=1)
+#B = matrix(data=c(4,0.5,0.4,0.6,0.2,0.1),ncol=1)
+B = matrix(data=c(4,5,-2,7,2,0.1),ncol=1)
 Y = X%*%B + matrix(data=rnorm(100),ncol=1)
-xf = factor(rep('A',20,rep('B',25),rep('C',20),
-                rep('D',10),rep('E'),25))
+xf = factor(c(rep('A',20),rep('B',25),rep('C',20),
+                rep('D',10),rep('E',25)))
 
+boxplot(Y~xf)
+
+mod = lm(Y ~ xf)
+# calculation xfB manually
+n1 = sum(xf == 'A')
+muhat = 1/n1*sum(Y*(xf=='A'))
+
+n2 = sum(xf=='B')
+xfb_m = 1/n2*sum(Y*(xf=='B')) - muhat
+summary(mod)
+anova(mod)
