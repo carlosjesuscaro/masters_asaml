@@ -25,5 +25,25 @@ mod = lm(Y ~ xf)
 # 2. Yes, the actor is influenial, greatly by C
 
 # 3. Comparing the effect by pair
+# library
+library(multcompView)
 
+# Create data
+set.seed(1)
+treatment <- rep(c("A", "B", "C", "D"), each=20)
+value=c( sample(2:5, 20 , replace=T) ,
+         sample(6:10, 20 , replace=T),
+         sample(1:7, 20 , replace=T),
+         sample(3:10, 20 , replace=T))
+data=data.frame(treatment,value)
+
+# What is the effect of the treatment on the value ?
+model=lm( data$value ~ data$treatment )
+ANOVA=aov(model)
+
+# Tukey test to study each pair of treatment :
+TUKEY <- TukeyHSD(x=ANOVA, 'data$treatment', conf.level=0.95)
+
+# Tuckey test representation :
+plot(TUKEY , las=1 , col="brown")
 
