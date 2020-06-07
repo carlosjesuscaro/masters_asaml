@@ -9,4 +9,4 @@ head(ozone)
 dim(ozone)
 # we have 112 samples and 13 variables
 
-#
+#  dcd
