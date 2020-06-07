@@ -50,3 +50,20 @@ points(x,predict(L,new),pch='P',col='purple')
 print('Summary of prediction with testing data')
 summary(predict(L,new))
 
+print('Exercise 2 - Multivariable linear problem')
+A = matrix(0,nrow = 50,ncol = 50)
+A[,1] = rexp(50,0.4)
+A[,2] = rnorm(50,3,0.5)
+A[,3] = rpois(50,0.8)
+A[,4] = runif(50,-5,3)
+
+y = 3 + 2*A[,1] - 5*A[,2] + 7*A[4] + rnorm(50)
+L1 = lm(y~.,data=as.data.frame(A))
+L1
+summary(L1)
+
+# = cbind(rep(1,50),A)
+
+# rank = 5
+# From the output: F statistic: 4773 on 4 (rank -1) and (n - rank)
+
