@@ -51,6 +51,9 @@ var4 = var(maxO3[vent=='Sud'])
 # this test will perform a fisher test and if we
 # H0, then we can assume all variances are equals
 summary(aov(abs(model$residuals)~vent))
+# Because we are working on the whole dataset, we are working
+# with the residuals
+
 print('Pre-packaged test')
 library(car)
 leveneTest(maxO3,vent,center=median)
@@ -59,7 +62,39 @@ leveneTest(model$residuals,vent,center=median)
 # Barlett test
 bartlett.test(model$residuals~vent)
 # The p-value is 0.8. Thus, we accept H0 and we
-# assume that all the levels have the same variance
+# accept that all the levels have the same variance
 
 # For Gaussianity:
+# ================
+# Shapiro test (preferred over other tests)
+select.est <- ozone['vent']=='Est'
+# we can perform the same for every label
+shapiro.test(ozone[select.est,"maxO3"])
+# the output shows a high p-value. Thus, we accept
+# H0 => data is Gaussian (H1 => not Gaussian)
+
+# remark: here we are on one label which is why
+# we can work directly on the response variable and
+# not on the residuals (which would be the case if
+# we are working with the whole data set because the
+# response for all individuals are not identically
+# distributed - not the same expectation,
+# same variance though)
+
+qqnorm((ozone[select.est,"maxO3"]))
+
+# If the graph seems to be across the line, we accept
+# the Gaussian
+
+select.nord <- ozone['vent']=='Nord'
+shapiro.test(ozone[select.nord,"maxO3"])
+qqnorm((ozone[select.nord,"maxO3"]))
+
+select.sud <- ozone['vent']=='Sud'
+shapiro.test(ozone[select.sud,"maxO3"])
+qqnorm((ozone[select.sud,"maxO3"]))
+
+select.ouest <- ozone['vent']=='Ouest'
+shapiro.test(ozone[select.ouest,"maxO3"])
+qqnorm((ozone[select.ouest,"maxO3"]))
 
