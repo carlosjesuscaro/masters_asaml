@@ -98,3 +98,26 @@ select.ouest <- ozone['vent']=='Ouest'
 shapiro.test(ozone[select.ouest,"maxO3"])
 qqnorm((ozone[select.ouest,"maxO3"]))
 
+# ANOVA testing
+ozone.aov <- aov(maxO3~vent)
+summary(ozone.aov)
+# Conclusion: the wind does have an influence in the Ozone layer
+# aov gives us this conclusion but does not give us the value
+
+res.ozone <- rstudent(ozone.aov)
+plot(res.ozone~vent)
+# There are 112 observation so 5% is around 6 and we have around 7
+# observations that are out of the region (95& ~ 2 threshold)
+
+summary(lm(maxO3~vent,data=ozone))
+# Here the overall goal is to confirm that there is an influence
+# not to find the right model
+# In this case, the first label is the reference cell ('est')
+
+summary(lm(maxO3~C(vent,base=2),data=ozone))
+# We have changed the reference cell to the second label
+
+summary(lm(maxO3~C(vent,sum),data=ozone))
+# Imposing another constraint:
+# mu_hat =mh
+# mh4 = - (mh1 + mh2 + mh3)
