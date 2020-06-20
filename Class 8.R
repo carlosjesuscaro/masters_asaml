@@ -86,3 +86,7 @@ newdataset = pcaozone$scores[,1:2]
 newdata = cbind(maxO3, newdataset)
 colnames(newdata) = c('maxO3','comp1','comp2')
 reg2= lm(maxO3~comp1+comp2,data=as.data.frame(newdata))
+# Although now we have been able to run a new model with only 2 variables
+# this sprocess is not actually variable selection
+
+# Variable selection can be done through Lasso, Ridge or Fisher test
