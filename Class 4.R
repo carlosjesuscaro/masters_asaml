@@ -3,6 +3,8 @@
 # Created by: carloscaro
 # Created on: 2020-06-05
 
+library(glmnet)
+
 # Defining the variables
 #x = matrix(rnorm(100 * 20), 100, 20)
 x = matrix(rnorm(100 * 10), ncol = 10)
