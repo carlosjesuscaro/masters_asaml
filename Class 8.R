@@ -145,3 +145,9 @@ vozone$varselect.thres  # it shows the variables according to their importance
 vozone$varselect.interp # it lists the variable relevant for the interpretation
 head(ds_ozone)  # to check the original of the variables
 vozone$varselect.pred # it lists the variables relevant for the predictiob
+
+
+ozonec = ds_ozone[,c(4,3,12,9)]
+y = ds_ozone[,2]
+library(rpart)
+T = rpart(y~.,data.frame(ozonec),cp=10^-9,minsplit=2)
