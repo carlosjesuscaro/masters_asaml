@@ -90,3 +90,58 @@ reg2= lm(maxO3~comp1+comp2,data=as.data.frame(newdata))
 # this sprocess is not actually variable selection
 
 # Variable selection can be done through Lasso, Ridge or Fisher test
+# reg_multi is the model with all the coefficients.
+# We are going to remove the coefficients with highest p value and then
+# re-run the model
+
+# Removing T9
+reg_multi_1 = lm(maxO3~T12+T15+Ne9+Ne12+Vx9+Vx12+Vx15+maxO3v,data = ds_ozone)
+# Removing Vx12
+reg_multi_2 = lm(maxO3~T12+T15+Ne9+Ne12+Vx9+Vx15+maxO3v,data = ds_ozone)
+# Removing Net12
+reg_multi_3 = lm(maxO3~T12+T15+Ne9+Vx9+Vx15+maxO3v,data = ds_ozone)
+# Removing T15
+reg_multi_4 = lm(maxO3~T12+Ne9+Vx9+Vx15+maxO3v,data = ds_ozone)
+# Removing Vx15
+reg_multi_5 = lm(maxO3~T12+Ne9+Vx9+maxO3v,data = ds_ozone)
+
+#******************************
+library(ipred)
+u=1:112
+v=sample(u,90)
+ozone_train = ds_ozone[v,]
+ozone_valid = ds_ozone[-v,]
+
+A = bagging(maxO3~., data = ozone_train, nbag = 50)
+bagt = predict(A, newdata = ozone_valid)
+
+bager <- function(ozone_train, ozone_valid)
+  {
+  err = c()
+  for (k in 1:500)
+    {
+    A = bagging(maxO3~., data = ozone_train, nbag = k)
+    bagt = predict(A, newdata=ozone_valid)
+    e = 1/nrow(ozone_train)*sum((bagt = ozone_train$maxO3)^2)
+    err = c(err,e)
+  }
+  bager = err
+}
+
+e1 = bager(ozone_train, ozone_valid)
+plot(e1,type='l')
+
+#######################################################
+library(randomForest)
+rf.reg = randomForest(maxO3~., data = ozone_train, xtest = ozone_train[,-2]
+, ytest = ozone_train[,"maxO3"], ntree = 500, importance = TRUE)
+# In this case, variables selection can be done by groups based on the importance
+rf.reg$importance
+
+# In order to do variable selection:
+library(VSURF)
+vozone = VSURF(maxO3~.,data = ds_ozone)
+vozone$varselect.thres  # it shows the variables according to their importance
+vozone$varselect.interp # it lists the variable relevant for the interpretation
+head(ds_ozone)  # to check the original of the variables
+vozone$varselect.pred # it lists the variables relevant for the predictiob
