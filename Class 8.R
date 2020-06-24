@@ -118,7 +118,7 @@ bagt = predict(A, newdata = ozone_valid)
 bager <- function(ozone_train, ozone_valid)
   {
   err = c()
-  for (k in 1:500)
+  for (k in 1:50)
     {
     A = bagging(maxO3~., data = ozone_train, nbag = k)
     bagt = predict(A, newdata=ozone_valid)
@@ -151,3 +151,7 @@ ozonec = ds_ozone[,c(4,3,12,9)]
 y = ds_ozone[,2]
 library(rpart)
 T = rpart(y~.,data.frame(ozonec),cp=10^-9,minsplit=2)
+plotcp(T)
+printcp(T)
+TT = prune(T, cp=2.23*10^-2)
+plot(TT)
