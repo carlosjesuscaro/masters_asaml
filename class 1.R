@@ -29,19 +29,18 @@ R = L$residuals
 hist(R,freq = FALSE) # it has the basic shape of the Gaussian distribution
 plot(L) # L is the linear model so plotting it gives us the following plots:
 # 1. Residual vs fitted:
-# even distribution of the error across the data set (symetry between the upper
+# a) even distribution of the error across the data set (symetry between the upper
 # and the lower part)
-# homoscedasticity can be appreciated (constant variance for the noise). If this
+# b) homoscedasticity can be appreciated (constant variance for the noise). If this
 # condition is not satisfied, all the computation is useless
+# * In this plot we are using the classical residuals
 # 2. Normal Q-Q:
 # Q-Q means quantiles quantiles plotting. This is assuming that we have a Gaussian
 # distribution
+# In this plot we are using the Standarized residuals (not the same as in
+# residuals vs fitted plot)
 # 3. Scale location
 # 4. Residuals vs Leverage
-
-# one of the graphs shows with a red line the expectation of the noise (zero) and the points around the line.
-# If the number of points on each side of the red line is equal, then we can accept the solution (concept of 
-# homoscedasticity). It is important to check that we have the same variance across the dataset
 
 
 
