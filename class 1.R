@@ -34,9 +34,13 @@ plot(L) # L is the linear model so plotting it gives us the following plots:
 # b) homoscedasticity can be appreciated (constant variance for the noise). If this
 # condition is not satisfied, all the computation is useless
 # * In this plot we are using the classical residuals
-# 2. Normal Q-Q:
+# 2. Normal Q-Q (quantile quantile plotting - y axis shows the observed quantiles):
 # Q-Q means quantiles quantiles plotting. This is assuming that we have a Gaussian
-# distribution
+# distribution. Essentially, the x-axis is the normal distribution quantile and y-axis
+# is the quantile for each point of the observed data. Plotting them representes
+# how close (or far) the quantiles from the observed data are to the qauntiles
+# from the normal distribution. This is the normal QQ plot because we are using the
+# normal distribution but another distribution could be used as well
 # In this plot we are using the Standarized residuals (not the same as in
 # residuals vs fitted plot)
 # 3. Scale location
