@@ -47,5 +47,13 @@ plot(L) # L is the linear model so plotting it gives us the following plots:
 # 4. Residuals vs Leverage
 
 
+# Personal example to ilustrate the values from F statistic
+x1 = runif(100,-3,3)
+x2 = runif(100,-3,3)
+y1 = 3 - 2*x1 + 3*x2 + rnorm(100)
+L1 = lm(y1~x1+x2)
+summary(L1)
+
+
 
 
