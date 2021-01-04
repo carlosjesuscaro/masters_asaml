@@ -1,6 +1,6 @@
 # Defining the equation
 x = runif(50,-7,7)
-y = 5 - 6*x + rnorm(50,0,45)
+y = 5 - 6*x + rnorm(50, 0,50)
 # Ploting the equation
 plot(x,y)
 title('Linear equation')
@@ -8,7 +8,7 @@ grid()
 # Linear model
 L = lm(y~x)
 summary(L)
-# the output is the coefficienties: (Intercept -> a0hat)/ (x -> a1hat
+# the output is the coefficienties: (Intercept -> a0hat)/ (x -> a1hat)
 
 # L$coefficients: exact values
 L$coefficients
@@ -36,6 +36,7 @@ grid()
 # Plotting individually (just replace plim or clim)
 #matplot(new$x, pred.w.plim, lty = c(1,2,2,3,3), type = "l", ylab = "predicted y")
 #grid()
+
 # Plotting all together
 # Training data set
 plot(x,y)
@@ -43,10 +44,10 @@ grid()
 title('Prediction and confidence interval PLUS training set')
 # Confidence levels in prediction and E[y]
 matlines(new$x, cbind(pred.w.clim, pred.w.plim[,-1]), lty = c(1,2,2,3,3), type = "l", ylab = "predicted y")
-# Plotting the linear model with the training set
+# Plotting the linear model with the training set (E[y])
 points(x,predict(L),pch='X',col='blue')
-# Plotting the prediction with a new data set
-points(x,predict(L,new),pch='P',col='purple')
+# Plotting the prediction with a new data set (prediction)
+points(x,predict(L,new),pch='@',col='purple')
 print('Summary of prediction with testing data')
 summary(predict(L,new))
 
