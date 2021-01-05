@@ -3,6 +3,10 @@
 # Created by: carloscaro
 # Created on: 2020-05-30
 
+library(dplyr)
+library(ggplot2)
+library(reshape)
+
 # Uploading the data
 Y1 = read.table('Y1.txt')
 Y2 = read.table('Y2.txt')
@@ -11,6 +15,17 @@ Y4 = read.table('Y4.txt')
 A1 = read.table('A1.txt')
 A3 = read.table('A3.txt')
 A4 = read.table('A4.txt')
+
+# Case 1
+# Understanding the data
+summary(Y1)
+# Plotting Y1
+ggplot(Y1, aes(x=V1)) + geom_histogram() + ggtitle('Y1$V1 Histogram')
+ggplot(Y1, aes(x=seq(1:50), y=V1)) + geom_line() + ggtitle('Y1$V1')
+# Plotting A1
+A11 <- A1 %>% mutate(index = seq(1:50))
+A11 <- melt(A11, id.vars ='index', variable.names = 'series')
+ggplot(A11, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
 
 # Linear models
 print('Linear Model 1')

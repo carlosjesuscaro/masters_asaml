@@ -62,7 +62,7 @@ y = 3 + 2*A[,1] - 5*A[,2] + 7*A[4] + rnorm(50)
 L1 = lm(y~.,data=as.data.frame(A))
 L1
 summary(L1)
-
+plot(L1)
 # = cbind(rep(1,50),A)
 
 # rank = 5
