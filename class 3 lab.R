@@ -144,5 +144,14 @@ ks.test(L4$residuals, "pnorm", mean = mean(L4$residuals),
 # skills, we cannot eliminate explanatory variables based on
 # the T-student result IF there is correlation among them
 
+###################################################
+# Model selection homework
+
+# VARIABLE SELECTION PROCEDURE
+# Method: Step by step forward with Global Fisher
+# test as the criteria and the stopping criteria is based on
+# identifying a lower F statistic. Once it is found, the
+# algorithm will keep the previous best model
+
 
 
