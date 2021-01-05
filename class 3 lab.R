@@ -88,16 +88,32 @@ shapiro.test(L3$residuals)
 # variable is V5 (only 1). In addition, we can confirm that the
 # residuals of the model are Gaussian (R2 score is great)
 
-
-
-
-print('Linear Model 3')
-L3 = lm(as.matrix(Y3)~.,data = as.data.frame(A3))
-summary(L3)
-
+# Case 4
+#========
+# Understanding the data
+summary(Y4)
+# Plotting Y3
+ggplot(Y4, aes(x=V1)) + geom_histogram() + ggtitle('Y4$V1 Histogram')
+ggplot(Y4, aes(x=seq(1:500), y=V1)) + geom_line() + ggtitle('Y4$V1')
+# Plotting A3
+A44 <- A4 %>% mutate(index = seq(1:500))
+A44 <- melt(A44, id.vars ='index', variable.names = 'series')
+ggplot(A44, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
+# Linear models
 print('Linear Model 4')
 L4 = lm(as.matrix(Y4)~.,data = as.data.frame(A4))
 summary(L4)
+plot(L4)
+# verifying the normality of the residuals
+hist(L4$residuals, freq = FALSE)
+# Shapiro Wilk test
+shapiro.test(L4$residuals)
+# Conclusion
+# Based on R2 (and the adjusted version as well), Y4 is being
+# modelled properly by A4. However, the residuals are not
+# Gaussian and therefore the Fisher amd Student tests cannot be
+# taken into consideration so we dont know exactly which
+# coefficients can be used or disregarded
 
 
 
