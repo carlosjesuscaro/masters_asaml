@@ -63,8 +63,30 @@ shapiro.test(L2$residuals)
 # The R2 (and Adjusted R2) show a good performance where the
 # most critical coefficients are V1 and V5
 
-
-
+# Case 3
+#========
+# Understanding the data
+summary(Y3)
+# Plotting Y3
+ggplot(Y3, aes(x=V1)) + geom_histogram() + ggtitle('Y3$V1 Histogram')
+ggplot(Y3, aes(x=seq(1:50), y=V1)) + geom_line() + ggtitle('Y3$V1')
+# Plotting A3
+A33 <- A3 %>% mutate(index = seq(1:50))
+A33 <- melt(A33, id.vars ='index', variable.names = 'series')
+ggplot(A33, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
+# Linear models
+print('Linear Model 3')
+L3 = lm(as.matrix(Y3)~.,data = as.data.frame(A3))
+summary(L3)
+plot(L3)
+# verifying the normality of the residuals
+hist(L3$residuals, freq = FALSE)
+# Shapiro Wilk test
+shapiro.test(L3$residuals)
+# Conclusion
+# Y3 is well modelled by a simple linear regression since the main
+# variable is V5 (only 1). In addition, we can confirm that the
+# residuals of the model are Gaussian (R2 score is great)
 
 
 
