@@ -153,5 +153,13 @@ ks.test(L4$residuals, "pnorm", mean = mean(L4$residuals),
 # identifying a lower F statistic. Once it is found, the
 # algorithm will keep the previous best model
 
+vsp <- function(data, outcome){
+  data <- as.data.frame(data)
+  outcome <- as.matrix(outcome)
+  for (var in data){
+    Ln <- lm(as.matrix(outcome)~., data = as.data.frame(var))
+    summary(Ln)
+  }
+}
 
-
+exp1 <- vsp(A1, Y1)
