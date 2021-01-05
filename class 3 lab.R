@@ -140,5 +140,9 @@ ks.test(L4$residuals, "pnorm", mean = mean(L4$residuals),
 # coefficients can be used or disregarded. Furthermore, there is
 # no correlation among the explanatory variables.
 
+# Overall conclusion, based on the present tools, knowledge and
+# skills, we cannot eliminate explanatory variables based on
+# the T-student result IF there is correlation among them
+
 
 
