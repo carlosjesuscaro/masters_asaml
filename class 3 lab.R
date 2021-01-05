@@ -17,6 +17,7 @@ A3 = read.table('A3.txt')
 A4 = read.table('A4.txt')
 
 # Case 1
+#========
 # Understanding the data
 summary(Y1)
 # Plotting Y1
@@ -26,11 +27,18 @@ ggplot(Y1, aes(x=seq(1:50), y=V1)) + geom_line() + ggtitle('Y1$V1')
 A11 <- A1 %>% mutate(index = seq(1:50))
 A11 <- melt(A11, id.vars ='index', variable.names = 'series')
 ggplot(A11, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
-
 # Linear models
 print('Linear Model 1')
 L1 = lm(as.matrix(Y1)~.,data = as.data.frame(A1))
 summary(L1)
+plot(L1)
+# verifying the normality of the residuals
+hist(L1$residuals, freq = FALSE)
+# Shapiro Wilk test
+shapiro.test(L1$residuals)
+# Conclusion
+# This is not a multi linear model as the adjusted R2 is very low
+# plus the residuals are not in the Gaussian distribution
 
 print('Linear Model 2')
 L2 = lm(as.matrix(Y2)~.,data = as.data.frame(A1))
