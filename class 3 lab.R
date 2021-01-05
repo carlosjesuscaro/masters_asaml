@@ -8,13 +8,13 @@ library(ggplot2)
 library(reshape)
 
 # Uploading the data
-Y1 = read.table('Y1.txt')
-Y2 = read.table('Y2.txt')
-Y3 = read.table('Y3.txt')
-Y4 = read.table('Y4.txt')
-A1 = read.table('A1.txt')
-A3 = read.table('A3.txt')
-A4 = read.table('A4.txt')
+Y1 <- read.table('Y1.txt')
+Y2 <- read.table('Y2.txt')
+Y3 <- read.table('Y3.txt')
+Y4 <- read.table('Y4.txt')
+A1 <- read.table('A1.txt')
+A3 <- read.table('A3.txt')
+A4 <- read.table('A4.txt')
 
 # Case 1
 #========
@@ -31,7 +31,7 @@ ggplot(A11, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
 cor(A1)
 # Linear models
 print('Linear Model 1')
-L1 = lm(as.matrix(Y1)~.,data = as.data.frame(A1))
+L1 <- lm(as.matrix(Y1)~.,data = as.data.frame(A1))
 summary(L1)
 plot(L1)
 # verifying the normality of the residuals
@@ -55,7 +55,7 @@ ggplot(Y2, aes(x=V1)) + geom_histogram() + ggtitle('Y2$V1 Histogram')
 ggplot(Y2, aes(x=seq(1:50), y=V1)) + geom_line() + ggtitle('Y1$V1')
 # Linear models
 print('Linear Model 2')
-L2 = lm(as.matrix(Y2)~.,data = as.data.frame(A1))
+L2 <- lm(as.matrix(Y2)~.,data = as.data.frame(A1))
 summary(L2)
 plot(L2)
 # verifying the normality of the residuals
@@ -90,7 +90,7 @@ ggplot(A33, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
 cor(A3)
 # Linear models
 print('Linear Model 3')
-L3 = lm(as.matrix(Y3)~.,data = as.data.frame(A3))
+L3 <- lm(as.matrix(Y3)~.,data = as.data.frame(A3))
 summary(L3)
 plot(L3)
 # verifying the normality of the residuals
@@ -122,7 +122,7 @@ ggplot(A44, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
 cor(A4)
 # Linear models
 print('Linear Model 4')
-L4 = lm(as.matrix(Y4)~.,data = as.data.frame(A4))
+L4 <- lm(as.matrix(Y4)~.,data = as.data.frame(A4))
 summary(L4)
 plot(L4)
 # verifying the normality of the residuals
