@@ -146,6 +146,7 @@ ks.test(L4$residuals, "pnorm", mean = mean(L4$residuals),
 
 ###################################################
 # Model selection homework
+# ========================
 
 # VARIABLE SELECTION PROCEDURE
 # Method: Step by step forward with Global Fisher
@@ -156,10 +157,16 @@ ks.test(L4$residuals, "pnorm", mean = mean(L4$residuals),
 vsp <- function(data, outcome){
   data <- as.data.frame(data)
   outcome <- as.matrix(outcome)
+  class(data)
+  class(outcome)
+  Ln <- lm(outcome, data)
+  summary(Ln)
+  print("Carajo")
   for (var in data){
-    Ln <- lm(as.matrix(outcome)~., data = as.data.frame(var))
-    summary(Ln)
+    #Ln <- lm(as.matrix(outcome)~., data = as.data.frame(var))
+    #summary(Ln
+    print("Mierda")
   }
 }
 
-exp1 <- vsp(A1, Y1)
+vsp(A1, Y1)
