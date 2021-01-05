@@ -27,6 +27,8 @@ ggplot(Y1, aes(x=seq(1:50), y=V1)) + geom_line() + ggtitle('Y1$V1')
 A11 <- A1 %>% mutate(index = seq(1:50))
 A11 <- melt(A11, id.vars ='index', variable.names = 'series')
 ggplot(A11, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
+# Checking the correlation among the explanatory variables
+cor(A1)
 # Linear models
 print('Linear Model 1')
 L1 = lm(as.matrix(Y1)~.,data = as.data.frame(A1))
@@ -41,7 +43,8 @@ ks.test(L1$residuals, "pnorm", mean = mean(L1$residuals),
         sd = sd(L1$residuals))
 # Conclusion
 # This is not a multi linear model as the adjusted R2 is very low
-# plus the residuals are not in the Gaussian distribution
+# plus the residuals are not in the Gaussian distribution. We can
+# also see that there is no correlation among the variable in A1
 
 # Case 2
 #========
@@ -67,7 +70,10 @@ ks.test(L2$residuals, "pnorm", mean = mean(L2$residuals),
 # through a multi-linear regression model. The residuals are Gaussian
 # so we can accept the Fisher and Student test
 # The R2 (and Adjusted R2) show a good performance where the
-# most critical coefficients are V1 and V5
+# most critical coefficients are V1 and V5. IMPORTANT to note that
+# since there is no correlation among the explanatory variables,
+# then we can eliminate the explanatory variables based on the
+# individual Student test
 
 # Case 3
 #========
@@ -80,6 +86,8 @@ ggplot(Y3, aes(x=seq(1:50), y=V1)) + geom_line() + ggtitle('Y3$V1')
 A33 <- A3 %>% mutate(index = seq(1:50))
 A33 <- melt(A33, id.vars ='index', variable.names = 'series')
 ggplot(A33, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
+# Checking the correlation among the explanatory variables
+cor(A3)
 # Linear models
 print('Linear Model 3')
 L3 = lm(as.matrix(Y3)~.,data = as.data.frame(A3))
@@ -94,8 +102,10 @@ ks.test(L3$residuals, "pnorm", mean = mean(L3$residuals),
         sd = sd(L3$residuals))
 # Conclusion
 # Y3 is well modelled by a simple linear regression since the main
-# variable is V5 (only 1). In addition, we can confirm that the
-# residuals of the model are Gaussian (R2 score is great)
+# variable is V5 (only 1). However, we cannot eliminate V1 nor V6
+# due to the high level correlation among them.In addition,
+# we can confirm that the residuals of the model are Gaussian
+# (R2 score is great)
 
 # Case 4
 #========
@@ -108,6 +118,8 @@ ggplot(Y4, aes(x=seq(1:500), y=V1)) + geom_line() + ggtitle('Y4$V1')
 A44 <- A4 %>% mutate(index = seq(1:500))
 A44 <- melt(A44, id.vars ='index', variable.names = 'series')
 ggplot(A44, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
+# Checking the correlation among the explanatory variables
+cor(A4)
 # Linear models
 print('Linear Model 4')
 L4 = lm(as.matrix(Y4)~.,data = as.data.frame(A4))
@@ -125,7 +137,8 @@ ks.test(L4$residuals, "pnorm", mean = mean(L4$residuals),
 # modelled properly by A4. However, the residuals are not
 # Gaussian and therefore the Fisher amd Student tests cannot be
 # taken into consideration so we dont know exactly which
-# coefficients can be used or disregarded
+# coefficients can be used or disregarded. Furthermore, there is
+# no correlation among the explanatory variables.
 
 
 
