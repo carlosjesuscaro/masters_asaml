@@ -145,6 +145,7 @@ ks.test(L4$residuals, "pnorm", mean = mean(L4$residuals),
 # the T-student result IF there is correlation among them
 
 ###################################################
+
 # Model selection homework
 # ========================
 
@@ -157,16 +158,30 @@ ks.test(L4$residuals, "pnorm", mean = mean(L4$residuals),
 vsp <- function(data, outcome){
   data <- as.data.frame(data)
   outcome <- as.matrix(outcome)
-  class(data)
-  class(outcome)
-  Ln <- lm(outcome, data)
-  summary(Ln)
-  print("Carajo")
-  for (var in data){
-    #Ln <- lm(as.matrix(outcome)~., data = as.data.frame(var))
-    #summary(Ln
-    print("Mierda")
+  flist <- vector()
+  data_portion <- data.frame(matrix(NA, nrow = dim(data)[1], ncol = 1))
+  for (i in 1:length(data)){
+    if (i == 1)
+      {
+        data_portion[1] = data[1]
+      }
+    else
+      {
+        data_portion <- cbind(data_portion, data[i])
+      }
+    colnames(data_portion) <- factor(seq(1:(dim(data_portion)[2])))
+    Ln <- lm(as.matrix(outcome)~., data = as.data.frame(data_portion))
+    Lnf <- summary(Ln)
+    flist <- cbind(flist, Lnf$fstatistic[1])
+    if (i >= 2){
+      if (flist[i-1] > flist[i]){
+          result <- cbind(i -1, flist[i-1])
+         return(result)
+      }
+    }
   }
 }
 
-vsp(A1, Y1)
+final <- vsp(A1, Y2)
+paste("The best result is achieved with the first ", final[1,1],
+      "column(s) and with an F statistic value of ", final[1,2])
