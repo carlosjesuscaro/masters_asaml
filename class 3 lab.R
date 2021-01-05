@@ -36,6 +36,9 @@ plot(L1)
 hist(L1$residuals, freq = FALSE)
 # Shapiro Wilk test
 shapiro.test(L1$residuals)
+# Kolmogorov test for normality
+ks.test(L1$residuals, "pnorm", mean = mean(L1$residuals),
+        sd = sd(L1$residuals))
 # Conclusion
 # This is not a multi linear model as the adjusted R2 is very low
 # plus the residuals are not in the Gaussian distribution
@@ -56,6 +59,9 @@ plot(L2)
 hist(L2$residuals, freq = FALSE)
 # Shapiro Wilk test
 shapiro.test(L2$residuals)
+# Kolmogorov test for normality
+ks.test(L2$residuals, "pnorm", mean = mean(L2$residuals),
+        sd = sd(L2$residuals))
 # Conclusion
 # This is a much better case where we can say that Y2 can be modeled
 # through a multi-linear regression model. The residuals are Gaussian
@@ -83,6 +89,9 @@ plot(L3)
 hist(L3$residuals, freq = FALSE)
 # Shapiro Wilk test
 shapiro.test(L3$residuals)
+# Kolmogorov test for normality
+ks.test(L3$residuals, "pnorm", mean = mean(L3$residuals),
+        sd = sd(L3$residuals))
 # Conclusion
 # Y3 is well modelled by a simple linear regression since the main
 # variable is V5 (only 1). In addition, we can confirm that the
@@ -108,6 +117,9 @@ plot(L4)
 hist(L4$residuals, freq = FALSE)
 # Shapiro Wilk test
 shapiro.test(L4$residuals)
+# Kolmogorov test for normality
+ks.test(L4$residuals, "pnorm", mean = mean(L4$residuals),
+        sd = sd(L4$residuals))
 # Conclusion
 # Based on R2 (and the adjusted version as well), Y4 is being
 # modelled properly by A4. However, the residuals are not
