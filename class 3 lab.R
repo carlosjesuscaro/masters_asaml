@@ -114,7 +114,7 @@ summary(Y4)
 # Plotting Y3
 ggplot(Y4, aes(x=V1)) + geom_histogram() + ggtitle('Y4$V1 Histogram')
 ggplot(Y4, aes(x=seq(1:500), y=V1)) + geom_line() + ggtitle('Y4$V1')
-# Plotting A3
+# Plotting A4
 A44 <- A4 %>% mutate(index = seq(1:500))
 A44 <- melt(A44, id.vars ='index', variable.names = 'series')
 ggplot(A44, aes(x=value)) + geom_histogram() + facet_wrap(~ variable)
@@ -182,6 +182,32 @@ vsp <- function(data, outcome){
   }
 }
 
-final <- vsp(A1, Y2)
+final <- vsp(A4, Y4)
 paste("The best result is achieved with the first ", final[1,1],
       "column(s) and with an F statistic value of ", final[1,2])
+
+######################################################################
+# Partial: based on p-value, choosing the best variable among all of them
+vsp_fisher <- function(data, outcome){
+  data <- as.data.frame(data)
+  outcome <- as.matrix(outcome)
+  fp_list <- vector()
+  best_model <- data.frame(matrix(NA, nrow = dim(data)[1], ncol = 1))
+  for (data_portion in data){
+    Ln <- lm(as.matrix(outcome)~., data = as.data.frame(data_portion))
+    Lnf <- summary(Ln)
+    fp_list <- cbind(fp_list, pf(Lnf$fstatistic[1],Lnf$fstatistic[2],Lnf$fstatistic[3],
+                                 lower.tail = FALSE))
+  }
+  best_model <- data[which.min(fp_list)]
+  fp_list <- vector()
+}
+
+final <- vsp_fisher(A4, Y4)
+
+######################################################################
+# Using the existent libraries
+library(MASS)
+
+step.model <- stepAIC(L3, direction = "both", trace = FALSE)
+summary(step.model)
