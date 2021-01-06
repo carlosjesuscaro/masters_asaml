@@ -208,6 +208,5 @@ final <- vsp_fisher(A4, Y4)
 ######################################################################
 # Using the existent libraries
 library(MASS)
-
 step.model <- stepAIC(L3, direction = "both", trace = FALSE)
 summary(step.model)
