@@ -4,7 +4,7 @@
 # Created on: 2020-06-05
 
 library(glmnet)
-
+# glm: generalized linear model
 # Defining the variables
 #x = matrix(rnorm(100 * 20), 100, 20)
 x = matrix(rnorm(100 * 10), ncol = 10)
@@ -48,11 +48,20 @@ ABfitcv = cv.glmnet(B,A)
 plot(ABfitcv)
 ABfit = glmnet(B,A,alpha = 1,lambda = ABfitcv$lambda.1se)
 plot(ABfit)
-print(coefficients(ABfit))
-print(cor(B))
-
-# forcing the lambda isnt a good practice because the
-# outcome is a bias estimator.
+# Forcing the lambda isnt a good practice because the
+# outcome is a BIAS estimator.
 # The right way is to use lasso to ave the suppoort of
 # variables that need to be supressed and THEN we use
-# a ordinary linear model (OLM)
+# a ordinary least squared (OLS) which is an UNBIASED estimator
+
+BSEL <- B[,1:4]
+ABOLS <- lm(A~., data = as.data.frame(BSEL))
+summary(ABOLS)
+# In the case of VERY large datasets, normally Map Reduced is used but this
+# requires to split the data. By doing this, LASSO amd Ridge should not
+# be used because the 'addition' of the results from these algorithms
+# will not be the same as if these algorithms were applied to the
+# complete dataset. On the other hand, OLS can be used with Map Reduced
+# and the results can be 'added' without affecting the final result
+# as it will be the same as if it was calculated with the whole
+# dataset without splitting it
