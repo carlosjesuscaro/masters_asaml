@@ -19,11 +19,16 @@ xf = factor(c(rep('A',20),rep('B',25),rep('C',20),
 boxplot(Y~xf)
 
 mod = lm(Y ~ xf)
+# By default, the lm function supresses the first column of the factors. This
+# means that the first factor is the reference cell
+
 # calculation xfB manually
+# This is the manual calculation of the interception coefficient
 n1 = sum(xf == 'A')
 muhat = 1/n1*sum(Y*(xf=='A'))
-
+# This is the manual calculation of the B factor coefficient
 n2 = sum(xf=='B')
 xfb_m = 1/n2*sum(Y*(xf=='B')) - muhat
+
 summary(mod)
 anova(mod)

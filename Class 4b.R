@@ -27,7 +27,12 @@ mod = lm(Y ~ xf)
 # 3. Comparing the effect by pair
 # library
 library(multcompView)
+TUK <- TukeyHSD(x=aov(mod), 'xf', conf.level=0.95)
+plot(TUK , las=1 , col="brown")
 
+
+
+# Example from the internet, not related to the class homework
 # Create data
 set.seed(1)
 treatment <- rep(c("A", "B", "C", "D"), each=20)
