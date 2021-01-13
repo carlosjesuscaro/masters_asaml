@@ -29,7 +29,11 @@ mod2 = lm(Y ~ F1 + F2 + F1*F2)
 anova(mod1)
 anova(mod2)
 # Based on the results, we can determine whether we can supress the cross effect or not.
-# If yes, then we can keep only the model with (F1 + F2)
+# If yes, then we can keep only the model with (F1 + F2). Specifically, we can ignore
+# crossover inference. Furthermore, then we can evaluate only F1 and F2 factors and
+# we can conclude that the main inference is coming from factor F1
+mod3 = lm(Y ~ F1*F2)
+anova(mod3)
 
 FF1 = as.numeric(F1)
 FF2 = as.numeric(F2)
