@@ -20,7 +20,7 @@ summary(ozone[c("maxO3","vent")])
 
 # boxplot of the variable max03 with respect to the
 # labeled of wind
-plot(maxO3~vent,data=ozone,pch=15,cex = 0.5,col = 'green')
+boxplot(maxO3~vent, data=ozone, pch=15, cex=0.5,col = 'green')
 
 # ANOVA with 1 Factor and 4 labels
 # wind: east, north, south and west
