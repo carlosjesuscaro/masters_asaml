@@ -19,15 +19,14 @@ X = matrix(data=c(rep(1,10),
 
 B = matrix(data=c(1,2,3,4,2,2,1,2,1,3,1,2),ncol = 1)
 Y = X%*%B + rnorm(10)
-F1 = factor(c(rep(1,3),rep(2,3),rep(3,4)))
-F2 = factor(c(1,1,2,1,2,2,1,1,2,2))
+F1 = factor(c(rep(1,3),rep(2,3),rep(3,4))) # there are 3 levels in Factor 1
+F2 = factor(c(1,1,2,1,2,2,1,1,2,2)) # there are 2 levels in Factor 2
 
+# Building the models
 mod1 = lm(Y ~ F1 + F2) # This doesn include the cross effect
 # R knows this is an ANOVA because F1 and F2 are factors
 mod2 = lm(Y ~ F1 + F2 + F1*F2)
 
-anova(mod1)
-anova(mod2)
 # Based on the results, we can determine whether we can supress the cross effect or not.
 # If yes, then we can keep only the model with (F1 + F2). Specifically, we can ignore
 # crossover inference. Furthermore, then we can evaluate only F1 and F2 factors and

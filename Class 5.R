@@ -26,8 +26,8 @@ boxplot(maxO3~vent, data=ozone, pch=15, cex=0.5,col = 'green')
 # wind: east, north, south and west
 model = aov(maxO3~vent)
 
-#  before analyzing the outputs of tests
-# we need to verify the assumptions of the noise
+#  before analyzing the outputs of tests we need to verify the assumptions
+#  of the noise
 # - independency: by looking the experiments
 # - gaussianity: normal qq-plot
 #                 kolmogorov test
