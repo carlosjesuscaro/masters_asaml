@@ -58,11 +58,16 @@ print('Pre-packaged test')
 library(car)
 leveneTest(maxO3,vent,center=median)
 leveneTest(model$residuals,vent,center=median)
+# Based on the high F values, we can keep the H0 which means that the
+# the variances asre all the same
 
 # Barlett test
 bartlett.test(model$residuals~vent)
 # The p-value is 0.8. Thus, we accept H0 and we
 # accept that all the levels have the same variance
+
+# In summary, Barlett and Levene are both showing us that we can keep H0
+# in other words, that all the variances are the same
 
 # For Gaussianity:
 # ================
