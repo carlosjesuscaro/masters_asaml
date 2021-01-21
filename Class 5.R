@@ -31,7 +31,8 @@ model = aov(maxO3~vent)
 # - independency: by looking the experiments
 # - gaussianity: normal qq-plot
 #                 kolmogorov test
-#                 shapiro test
+#                 Shapiro test (preffered option over Kolmogorox as it Shapiro
+#                 is specialized in Gaussian while Kolmogoroz is more generic
 # - homoscedasticty (same variance):
 #                   - bartlett test
 #                   - levene test
@@ -53,7 +54,6 @@ var4 = var(maxO3[vent=='Sud'])
 summary(aov(abs(model$residuals)~vent))
 # Because we are working on the whole dataset, we are working
 # with the residuals
-
 print('Pre-packaged test')
 library(car)
 leveneTest(maxO3,vent,center=median)
@@ -61,7 +61,7 @@ leveneTest(model$residuals,vent,center=median)
 # Based on the high F values, we can keep the H0 which means that the
 # the variances asre all the same
 
-# Barlett test
+# Barlett test - this test is using the likelihood ratio
 bartlett.test(model$residuals~vent)
 # The p-value is 0.8. Thus, we accept H0 and we
 # accept that all the levels have the same variance
@@ -84,10 +84,10 @@ shapiro.test(ozone[select.est,"maxO3"])
 # we are working with the whole data set because the
 # response for all individuals are not identically
 # distributed - not the same expectation,
-# same variance though)
+# same variance though - Gaussian: N(expectation, var) the expectation is going
+# to be different for each level)
 
 qqnorm((ozone[select.est,"maxO3"]))
-
 # If the graph seems to be across the line, we accept
 # the Gaussian
 
@@ -110,10 +110,9 @@ summary(ozone.aov)
 # aov gives us this conclusion but does not give us the value
 
 res.ozone <- rstudent(ozone.aov)
-plot(res.ozone~vent)
+boxplot(res.ozone~vent)
 # There are 112 observation so 5% is around 6 and we have around 7
 # observations that are out of the region (95& ~ 2 threshold)
-
 summary(lm(maxO3~vent,data=ozone))
 # Here the overall goal is to confirm that there is an influence
 # not to find the right model
