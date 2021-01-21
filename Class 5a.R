@@ -14,17 +14,19 @@ treatment <- factor(rep(c('T1','T2','T3','T4','T5'),each=6))
 # ^ that's the factor
 # shortcut to write Tn:
 # paste('T',1:5,sep='') .... useful if we have to write many numbers
-plot(delai~treatment,col='green')
+boxplot(delai~treatment,col='green')
 
 # Because we have a very small data set, we are accepting H0 and
 # not doing the test for variance and Gaussian
 myaov = aov(delai~treatment)
 summary(myaov)
-# based on the p-value=1%, we take H0 and we conclude that there isnt
-# much influence
+# based on the p-value=1%, we take H1 and we conclude that there is an
+# influence
 
 model <- lm(delai~treatment)
 summary(model)
+# Once we see the coefficients, it is important to compare the levels
+# in pairs to see whether they are related or not
 
 # Comparing all the factors
 library(gmodels)
@@ -39,7 +41,7 @@ fit.contrast(myaov,treatment,cmat)
 pairwise.t.test(delai,treatment,p.adjust="bonf")
 # the output shows "t tests wit pooled SD" which means that for
 # level, the variances are equal
-# For example, we can conclude that T3 and T1 are different
+# For example, we can conclude that T3 and T1 have different effects
 # because their p-value is 1.4% so we accepted H1
 
 # Checking if 0 is inside

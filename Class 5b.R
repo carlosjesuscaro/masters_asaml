@@ -4,3 +4,5 @@
 # Created on: 2020-06-19
 
 ble <- read.table('Dataset_Ble.txt', header = TRUE, sep = ";")
+
+load('arbre.RData')
