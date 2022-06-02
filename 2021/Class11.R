@@ -27,5 +27,13 @@ T <- rpart(toys$y~., data = learn, control = rpart.control(cp=0, minsplit = 2))
 # Where T is the maximal tree
 
 # Pruning:
+# cp: complexity parameter
 printcp(T)
-plotcp(T)
+plotcp(T) # Based on the graph, the chosen cp is 4 which (and based on
+# the table from printcp) is nsplit = 3 (4th line)
+Tf <- prune(T, cp = 0.045)
+print(Tf)
+plot(Tf)
+text(Tf)
+predict(Tf) # -> the outcome is the probabiliy
+
