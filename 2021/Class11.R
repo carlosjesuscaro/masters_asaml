@@ -35,5 +35,7 @@ Tf <- prune(T, cp = 0.045)
 print(Tf)
 plot(Tf)
 text(Tf)
-predict(Tf) # -> the outcome is the probabiliy
+predict(Tf) # The outcome is the probabiliy
+P <- predict(Tf, type = 'class') # The outcome is the prediction
+sum(P!=toys$y) # Calculating the error
 
