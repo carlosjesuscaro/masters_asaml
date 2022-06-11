@@ -3,5 +3,5 @@
 .RData
 .Ruserdata
 *.xml
-/.idea/
-/.RDataFiles/
+.idea/
+.RDataFiles/
