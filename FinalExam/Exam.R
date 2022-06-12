@@ -32,7 +32,7 @@ data_diff <- diff(data$V1)
 hist(data_diff, freq = FALSE)
 # Note: Based on the histogream, it looks like an Exponential distribution
 
-# Applying the Kolmogorov-Smirnov test
+c
 ks.test(data_diff, pexp, 1 / mean(data_diff))
 # Note: p-value: 0.5568 ==> We accept H0, the difference between 2 points of data$V1
 # is an exponential random variable
@@ -77,6 +77,30 @@ summary(lm_model)
 # Validating the noise
 # Step 1: Studiantized residuals
 st_res <- rstudent(lm_model)
+# Step 2: Histogram analysis
+hist(st_res, freq = FALSE)
+# Note: it seems to be Gaussian but it is not conclusive
+# Step 3: QQ plot
+qqnorm(st_res)
+# Note: it seems to be ok for a Gaussian noise
+# Step 4: checking homoscedasticity
+plot.res <- function(x,y,title=" ")
+{
+  plot(x,y,col='blue',ylab='Residuals',xlab='fitted values',main=title)
+  abline(h=0,col='green')
+}
+plot.res(predict(lm_model), st_res)
+# Note: it looks ok for homscedasticity
+# Applying the Shapiro test
+shapiro.test(st_res)
+# Notes: p-value = 0.167 ==> The residuals are Gaussian
+
+# Variable selection
+library(MASS)
+
+
+
+
 
 
 
