@@ -97,10 +97,51 @@ shapiro.test(st_res)
 
 # Variable selection
 library(MASS)
+# 1. AIC Backwards
+mod_sel_back <- stepAIC(lm_model, ~., direction = c("backward"), test = "F")
+# Note: AIC = -202.44
+# Calculating the error
+pred_aic_back <- predict(mod_sel_back, newdata = uk_test)
+res_aic_back <- pred_aic_back - uk_test$RETCAP
+error_aic_back <- mean(res_aic_back^2)
 
+# 2. AIC Forwards
+mod_forward <- lm(RETCAP~1,data = uk_train)
+mod_sel_forw <- stepAIC(mod_forward, RETCAP~WCFTCL+WCFTDT+GEARRAT+LOGSALE+
+  LOGASST+NFATAST+CAPINT+FATTOT+INVTAST+PAYOUT+QUIKRAT+CURRAT,
+                        data = uk_train,direction=c("forward"),test="F")
+# Note: AIC = -201.57
+# Calculating the error
+pred_aic_forw <- predict(mod_sel_forw, newdata = uk_test)
+res_aic_forw <- pred_aic_forw - uk_test$RETCAP
+error_aic_forw <- mean(res_aic_forw^2)
 
+# 3. AIC Stepwise
+mod_sel_step <- stepAIC(lm_model, ~., direction = c("both"), test = "F")
+# Note: AIC = -202.44
+# Calculating the error
+pred_aic_step <- predict(mod_sel_step, newdata = uk_test)
+res_aic_step <- pred_aic_step - uk_test$RETCAP
+error_aic_step <- mean(res_aic_step^2)
 
+# 4. Lasso
+library(glmnet)
+# Finding the best lambda with cross validation
+lasso_cv <- cv.glmnet(as.matrix(uk_train[, -1]), uk_train[, 1], alpha=1)
+# Building the model with Lasso and the best lambda
+var_sel_lasso <- glmnet(uk_train[, -1], uk_train[, 1], alpha = 1,
+                        lambda = lasso_cv$lambda.1se)
+# Observing the selected variables by Lasso
+var_sel_lasso$beta
+# Note: Selected variables = CAPINT, LOGSALE, CURRAT, NFATAST, FATTOT,
+# PAYOUT, WCFTCL
 
+# Building the model with Lasso selected variables
+mod_sel_lasso <- lm(RETCAP ~ CAPINT + LOGSALE + CURRAT + NFATAST +
+                  FATTOT + PAYOUT + WCFTCL, data = uk_train)
+summary(mod_sel_lasso)
 
-
-
+# Calculating the error
+pred_aic_lasso <- predict(mod_sel_lasso, newdata = uk_test)
+res_aic_lasso <- pred_aic_lasso - uk_test$RETCAP
+error_aic_lasso <- mean(res_aic_lasso^2)
