@@ -32,7 +32,7 @@ data_diff <- diff(data$V1)
 hist(data_diff, freq = FALSE)
 # Note: Based on the histogream, it looks like an Exponential distribution
 
-c
+# Performing the Kolmogorov - Smirnov test
 ks.test(data_diff, pexp, 1 / mean(data_diff))
 # Note: p-value: 0.5568 ==> We accept H0, the difference between 2 points of data$V1
 # is an exponential random variable
@@ -145,3 +145,12 @@ summary(mod_sel_lasso)
 pred_aic_lasso <- predict(mod_sel_lasso, newdata = uk_test)
 res_aic_lasso <- pred_aic_lasso - uk_test$RETCAP
 error_aic_lasso <- mean(res_aic_lasso^2)
+
+# Final model selection
+errors <- c("AIC_Backward" = error_aic_back,
+            "AIC_forward" = error_aic_forw,
+            "AIC_step" = error_aic_step,
+            "Lasso" = error_aic_lasso)
+
+print("Smallest error is ")
+
