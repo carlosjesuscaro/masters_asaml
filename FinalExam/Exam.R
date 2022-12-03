@@ -63,7 +63,7 @@ dim(uk_test)
 
 # Checking the correlation
 cor(uk_train)
-# Note: There is no indication that a varibale can be supressed from
+# Note: There is no indication that a variable can be supressed from
 # the correlatin analysis
 
 # Building a linear model
@@ -104,6 +104,7 @@ mod_sel_back <- stepAIC(lm_model, ~., direction = c("backward"), test = "F")
 pred_aic_back <- predict(mod_sel_back, newdata = uk_test)
 res_aic_back <- pred_aic_back - uk_test$RETCAP
 error_aic_back <- mean(res_aic_back^2)
+error_aic_back
 
 # 2. AIC Forwards
 mod_forward <- lm(RETCAP~1,data = uk_train)
@@ -111,10 +112,11 @@ mod_sel_forw <- stepAIC(mod_forward, RETCAP~WCFTCL+WCFTDT+GEARRAT+LOGSALE+
   LOGASST+NFATAST+CAPINT+FATTOT+INVTAST+PAYOUT+QUIKRAT+CURRAT,
                         data = uk_train,direction=c("forward"),test="F")
 # Note: AIC = -201.57
-# Calculating the error
+mod_sel_forw <- stepAIC(lm_model, ~., direction = c("forward"), test = "F")# Calculating the error
 pred_aic_forw <- predict(mod_sel_forw, newdata = uk_test)
 res_aic_forw <- pred_aic_forw - uk_test$RETCAP
 error_aic_forw <- mean(res_aic_forw^2)
+error_aic_forw
 
 # 3. AIC Stepwise
 mod_sel_step <- stepAIC(lm_model, ~., direction = c("both"), test = "F")
@@ -123,6 +125,7 @@ mod_sel_step <- stepAIC(lm_model, ~., direction = c("both"), test = "F")
 pred_aic_step <- predict(mod_sel_step, newdata = uk_test)
 res_aic_step <- pred_aic_step - uk_test$RETCAP
 error_aic_step <- mean(res_aic_step^2)
+error_aic_step
 
 # 4. Lasso
 library(glmnet)
