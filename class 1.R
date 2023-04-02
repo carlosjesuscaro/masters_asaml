@@ -43,8 +43,10 @@ plot(L) # L is the linear model so plotting it gives us the following plots:
 # normal distribution but another distribution could be used as well
 # In this plot we are using the Standarized residuals (not the same as in
 # residuals vs fitted plot)
-# 3. Scale location
-# 4. Residuals vs Leverage
+# 3. Scale location. This plot helps to identifdy how the residuals are spread through
+# the fitted values so that a potential concentration within a range of fitted values us more
+# prominent than with other values
+# 4. Residuals vs Leverage. It helps to identify outliers as well as influential points
 
 
 # Personal example to ilustrate the values from F statistic
